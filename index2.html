@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>iPhone Style Calculator</title>
+
+<style>
+body{
+    margin:0;
+    height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#000;
+    font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+}
+
+.calculator{
+    width:320px;
+    background:#000;
+}
+
+.display{
+    color:white;
+    font-size:64px;
+    text-align:right;
+    padding:20px;
+    height:100px;
+    box-sizing:border-box;
+}
+
+.buttons{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:12px;
+    padding:10px;
+}
+
+button{
+    border:none;
+    border-radius:50%;
+    height:65px;
+    font-size:24px;
+    cursor:pointer;
+}
+
+.gray{ background:#a5a5a5; }
+.dark{ background:#333; color:white; }
+.orange{ background:#ff9f0a; color:white; }
+
+.zero{
+    grid-column: span 2;
+    border-radius:40px;
+    text-align:left;
+    padding-left:28px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="calculator">
+
+<div id="display" class="display">0</div>
+
+<div class="buttons">
+<button class="gray" onclick="clearDisplay()">AC</button>
+<button class="gray" onclick="append('%')">%</button>
+<button class="gray" onclick="append('/')">÷</button>
+<button class="orange" onclick="append('/')">÷</button>
+
+<button class="dark" onclick="append('7')">7</button>
+<button class="dark" onclick="append('8')">8</button>
+<button class="dark" onclick="append('9')">9</button>
+<button class="orange" onclick="append('*')">×</button>
+
+<button class="dark" onclick="append('4')">4</button>
+<button class="dark" onclick="append('5')">5</button>
+<button class="dark" onclick="append('6')">6</button>
+<button class="orange" onclick="append('-')">−</button>
+
+<button class="dark" onclick="append('1')">1</button>
+<button class="dark" onclick="append('2')">2</button>
+<button class="dark" onclick="append('3')">3</button>
+<button class="orange" onclick="append('+')">+</button>
+
+<button class="dark zero" onclick="append('0')">0</button>
+<button class="dark" onclick="append('.')">.</button>
+<button class="orange" onclick="calculate()">=</button>
+</div>
+
+</div>
+
+<script>
+let display = document.getElementById("display");
+let input = "";
+
+function append(val){
+    input += val;
+    display.innerText = input;
+}
+
+function clearDisplay(){
+    input="";
+    display.innerText="0";
+}
+
+function calculate(){
+    if(input.replace(/\s/g,'') === "1+1"){
+        display.innerText = "I miss you";
+        display.style.fontSize = "50px";
+        input="";
+        return;
+    }
+
+    try{
+        let result = eval(input);
+        display.innerText = result;
+        input = result.toString();
+    }catch{
+        display.innerText="Error";
+        input="";
+    }
+}
+</script>
+
+</body>
+</html>
